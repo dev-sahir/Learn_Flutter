@@ -49,75 +49,54 @@ class _LearnFlutterState extends State<LearnFlutter> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Stack(
+              clipBehavior: Clip.none,
+              alignment: Alignment.bottomCenter,
+              children: [
+                Container(
+                  height: 200.0,
+                  decoration: BoxDecoration(
+                    // color: Colors.red,
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage('images/background.jpg'),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: -50.0,
+                  child: Container(
+                    height: 150.0,
+                    width: 150.0,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.white,
+                        width: 5.0,
+                      ),
+                      shape: BoxShape.circle,
+                      // color: Colors.red,
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage('images/profile.jpg'),
+                      ),
+                    ),
+                  ),
+                ),
+              ]),
+          SizedBox(height: 70.0),
           Text(
-            'Slider',
+            'Sahir Khan',
             style: TextStyle(
-              fontSize: slider1,
+              fontSize: 35.0,
+              fontWeight: FontWeight.w600,
             ),
           ),
-          SizedBox(height: 40.0),
-          Slider(
-            activeColor: Colors.red,
-            inactiveColor: Colors.red.shade100,
-            label: slider1.round().toString(),
-            divisions: 100,
-            min: 0,
-            max: 100,
-            value: slider1,
-            onChanged: (value) {
-              setState(() {
-                this.slider1 = value;
-              });
-            },
-          ),
-          SizedBox(height: 40.0),
-          SliderTheme(
-            data: SliderThemeData(
-              activeTrackColor: Colors.indigo,
-              inactiveTrackColor: Colors.indigo.shade100,
-              thumbColor: Colors.green,
-              valueIndicatorColor: Colors.teal,
-              overlayColor: Colors.red,
-            ),
-            child: Slider(
-              label: slider2.round().toString(),
-              divisions: 100,
-              min: 0,
-              max: 100,
-              value: slider2,
-              onChanged: (value) {
-                setState(() {
-                  this.slider2 = value;
-                });
-              },
-            ),
-          ),
-          SizedBox(height: 40.0),
-          SliderTheme(
-            data: SliderThemeData(
-              overlayShape: RoundSliderOverlayShape(overlayRadius: 32),
-              thumbShape: RoundSliderThumbShape(enabledThumbRadius: 22),
-              trackHeight: 20.0,
-              activeTrackColor: Colors.indigo,
-              inactiveTrackColor: Colors.indigo.shade100,
-              thumbColor: Colors.green,
-              valueIndicatorColor: Colors.teal,
-              overlayColor: Colors.red,
-            ),
-            child: SizedBox(
-              width: 250.0,
-              child: Slider(
-                label: slider3.round().toString(),
-                divisions: 100,
-                min: 0,
-                max: 100,
-                value: slider3,
-                onChanged: (value) {
-                  setState(() {
-                    this.slider3 = value;
-                  });
-                },
-              ),
+          SizedBox(height: 5.0),
+          Text(
+            'App Developer',
+            style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.w300,
             ),
           ),
         ],
