@@ -22,7 +22,7 @@ class LearnFlutter extends StatefulWidget {
 }
 
 class _LearnFlutterState extends State<LearnFlutter> {
-  floatingSnackBar(BuildContext context) {}
+  
 
   @override
   Widget build(BuildContext context) {
