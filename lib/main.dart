@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'Widgets/drawer.dart';
 
@@ -22,7 +25,52 @@ class LearnFlutter extends StatefulWidget {
 }
 
 class _LearnFlutterState extends State<LearnFlutter> {
-  
+  File _imageFile;
+
+  buidProfile() {
+    if (_imageFile != null) {
+      return ClipOval(
+        child: Image.file(
+          _imageFile,
+          height: 180.0,
+          width: 180.0,
+          fit: BoxFit.cover,
+        ),
+      );
+    } else {
+      return ClipOval(
+        child: Image.asset(
+          'images/mp.jpg',
+          height: 180.0,
+          width: 180.0,
+          fit: BoxFit.cover,
+        ),
+      );
+    }
+  }
+
+  getImageCamera() async {
+    final pickedFile = await ImagePicker().getImage(source: ImageSource.camera);
+    setState(() {
+      if (pickedFile != null) {
+        _imageFile = File(pickedFile.path);
+      } else {
+        print("no image selected");
+      }
+    });
+  }
+
+  getImageGallery() async {
+    final pickedFile =
+        await ImagePicker().getImage(source: ImageSource.gallery);
+    setState(() {
+      if (pickedFile != null) {
+        _imageFile = File(pickedFile.path);
+      } else {
+        print("no image selected");
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,94 +96,21 @@ class _LearnFlutterState extends State<LearnFlutter> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'SnackBar',
-              style: TextStyle(
-                fontSize: 40.0,
-              ),
-            ),
-            SizedBox(height: 30.0),
-            SizedBox(
-              height: 40,
-              width: 150,
-              child: ElevatedButton(
-                child: Text('Floating Snackbar'),
-                onPressed: () {
-                  final snack = SnackBar(
-                    content: Text(
-                      "hey i'm floating snackBar",
-                      style: TextStyle(
-                        fontSize: 20.0,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    backgroundColor: Colors.deepOrange,
-                    shape: StadiumBorder(),
-                    behavior: SnackBarBehavior.floating,
-                  );
-                  ScaffoldMessenger.of(context).showSnackBar(snack);
-                },
-              ),
-            ),
-            SizedBox(height: 20.0),
-            SizedBox(
-              height: 40,
-              width: 150,
-              child: ElevatedButton(
-                child: Text('Action Snackbar'),
-                onPressed: () {
-                  final snack = SnackBar(
-                    content: Text(
-                      "hey i'm action snackBar",
-                      style: TextStyle(
-                        fontSize: 16.0,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    backgroundColor: Colors.indigo,
-                    shape: StadiumBorder(),
-                    behavior: SnackBarBehavior.floating,
-                    action: SnackBarAction(
-                      label: 'Click Me',
-                      onPressed: () {},
-                    ),
-                  );
-                  ScaffoldMessenger.of(context).showSnackBar(snack);
-                },
-              ),
-            ),
-            SizedBox(height: 20.0),
-            SizedBox(
-              height: 40,
-              width: 150,
-              child: ElevatedButton(
-                child: Text('Custom Snackbar'),
-                onPressed: () {
-                  final snack = SnackBar(
-                    content: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Icon(Icons.done, color: Colors.white),
-                        Text(
-                          "hey i'm custom snackBar",
-                          style: TextStyle(
-                            fontSize: 16.0,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                    ),
-                    backgroundColor: Colors.blueGrey,
-                    shape: StadiumBorder(),
-                    behavior: SnackBarBehavior.floating,
-                    margin: EdgeInsets.all(30.0),
-                    elevation: 10.0,
-                    duration: Duration(seconds: 4),
-                  );
-                  ScaffoldMessenger.of(context).showSnackBar(snack);
-                },
-              ),
-            ),
+            buidProfile(),
+            SizedBox(height: 40.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: getImageCamera,
+                  child: Text('Camera'),
+                ),
+                ElevatedButton(
+                  onPressed: getImageGallery,
+                  child: Text('Gallery'),
+                ),
+              ],
+            )
           ],
         ),
       ),
