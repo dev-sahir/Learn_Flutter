@@ -25,13 +25,13 @@ class LearnFlutter extends StatefulWidget {
 }
 
 class _LearnFlutterState extends State<LearnFlutter> {
-  File _imageFile;
+  File? _imageFile;
 
   buidProfile() {
     if (_imageFile != null) {
       return ClipOval(
         child: Image.file(
-          _imageFile,
+          _imageFile!,
           height: 180.0,
           width: 180.0,
           fit: BoxFit.cover,
